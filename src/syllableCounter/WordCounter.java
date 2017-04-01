@@ -11,20 +11,18 @@ public class WordCounter {
 	private int syllableCount = 0;
 	private boolean lastChar = false;
 
-	public void setLastChar(boolean lastChar) {
-		this.lastChar = lastChar;
-	}
-
-	public int getSyllableCount() {
+	public int countSyllables(String word) {
+		char c = ' ';
+		syllableCount = 0;
+		state = new StartState();
+		for (int i = 0; i < word.length(); i++) {
+			c = word.charAt(i);
+			if (c == '\'')
+				continue;
+			lastChar = (i == word.length() - 1);
+			state.handleChar(c);
+		}
 		return syllableCount;
-	}
-
-	public void setSyllableCount(int count) {
-		syllableCount = count;
-	}
-
-	public State getState() {
-		return state;
 	}
 
 	public void setState(State newState) {

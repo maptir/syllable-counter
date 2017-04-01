@@ -83,8 +83,7 @@ public class WordCounterTest {
 			System.exit(1);
 		}
 
-		OOSyllableCounter counter = new OOSyllableCounter();
-		// SimpleSyllableCounter counter = new SimpleSyllableCounter();
+		WordCounter counter = new WordCounter();
 
 		int correct = 0;
 		int incorrect = 0;

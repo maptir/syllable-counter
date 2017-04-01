@@ -31,7 +31,7 @@ public class Main implements Runnable {
 	}
 
 	public void run() {
-		OOSyllableCounter countSyl = new OOSyllableCounter();
+		WordCounter countSyl = new WordCounter();
 		reader = openDict();
 		try {
 			while ((word = reader.readLine()) != null) {
