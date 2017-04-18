@@ -21,4 +21,8 @@ public abstract class State {
 		return Character.isLetter(c);
 	}
 
+	public boolean isHyphen(char c) {
+		return c == '-';
+	}
+
 }

@@ -10,7 +10,7 @@ import java.net.URL;
 import stopwatch.TaskTimer;
 
 public class Main implements Runnable {
-	public final static String DICT_URL = "http://se.cpe.ku.ac.th/dictionary.txt";
+	public final static String DICT_URL = "https://www.cpe.ku.ac.th/~jim/219141/readability/simple.txt";
 	public static InputStream input;
 	public static BufferedReader reader;
 	public String word;

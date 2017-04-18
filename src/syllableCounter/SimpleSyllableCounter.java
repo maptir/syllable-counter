@@ -100,6 +100,6 @@ public class SimpleSyllableCounter {
 
 	public static void main(String[] args) {
 		SimpleSyllableCounter count = new SimpleSyllableCounter();
-		System.out.println(count.countSyllables("home-brew"));
+		System.out.println(count.countSyllables("periods1"));
 	}
 }

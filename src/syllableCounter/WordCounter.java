@@ -37,9 +37,9 @@ public class WordCounter {
 				setState(SINGLEVOWEL);
 				if (lastChar)
 					syllableCount++;
-			} else
+			} else if (isLetter(c) && !isHyphen(c))
 				setState(CONSONANT);
-			if (!isLetter(c) || c == '-')
+			else
 				setState(NONWORD);
 		}
 
@@ -53,9 +53,16 @@ public class WordCounter {
 				setState(MULTIVOWEL);
 				if (lastChar)
 					syllableCount++;
-			} else if (isLetter(c) || c == '-') {
+			} else if (isLetter(c)) {
 				syllableCount++;
 				setState(CONSONANT);
+			} else if (isHyphen(c)) {
+				syllableCount++;
+				setState(HYPHEN);
+			} else {
+				setState(NONWORD);
+				if (lastChar)
+					syllableCount = 0;
 			}
 		}
 
@@ -69,12 +76,20 @@ public class WordCounter {
 
 		@Override
 		public void handleChar(char c) {
-			if (!isVowel(c)) {
+			if (isVowel(c)) {
+				if (lastChar)
+					syllableCount++;
+			} else if (!isVowel(c) && isLetter(c)) {
 				syllableCount++;
 				setState(CONSONANT);
-			}
-			if (isVowel(c) && lastChar)
+			} else if (isHyphen(c)) {
 				syllableCount++;
+				setState(HYPHEN);
+			} else {
+				setState(NONWORD);
+				if (lastChar)
+					syllableCount = 0;
+			}
 		}
 
 	}
@@ -83,16 +98,21 @@ public class WordCounter {
 
 		@Override
 		public void handleChar(char c) {
-			if (lastChar && c == 'e' && syllableCount == 0)
+			if (lastChar && (c == 'e' || c == 'E') && syllableCount == 0) {
 				syllableCount++;
-			if (isVowelOrY(c)) {
+			} else if (isVowelOrY(c)) {
+				setState(SINGLEVOWEL);
 				if (lastChar && c != 'e' && c != 'E')
 					syllableCount++;
-				setState(SINGLEVOWEL);
-			} else if (isLetter(c) || c == '-')
+			} else if (isLetter(c)) {
 				setState(CONSONANT);
-			else
+			} else if (isHyphen(c)) {
+				setState(HYPHEN);
+			} else {
 				setState(NONWORD);
+				if (lastChar)
+					syllableCount = 0;
+			}
 		}
 
 	}
@@ -105,22 +125,21 @@ public class WordCounter {
 				setState(SINGLEVOWEL);
 				if (lastChar)
 					syllableCount++;
-			} else if (isLetter(c))
+			} else if (isLetter(c)) {
 				setState(CONSONANT);
-			else if (c == '-')
-				setState(HYPHEN);
-			else
+			} else {
 				setState(NONWORD);
+				if (lastChar)
+					syllableCount = 0;
+			}
 		}
 
 	}
 
 	class NonwordState extends State {
-
 		@Override
 		public void handleChar(char c) {
 			syllableCount = 0;
 		}
-
 	}
 }
