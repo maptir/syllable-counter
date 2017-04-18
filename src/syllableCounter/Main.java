@@ -35,9 +35,10 @@ public class Main implements Runnable {
 		reader = openDict();
 		try {
 			while ((word = reader.readLine()) != null) {
-				if (word.length() != 0 && countSyl.countSyllables(word) != 0)
+				int countSyllables = countSyl.countSyllables(word);
+				if (countSyllables > 0)
 					words++;
-				syllables += countSyl.countSyllables(word);
+				syllables += countSyllables;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
